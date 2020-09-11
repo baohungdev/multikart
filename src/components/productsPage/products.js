@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Product from "./product";
 import Paper from "@material-ui/core/Paper";
 import ProductDesc from "./productDesc";
+import history from "../history";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,7 +78,10 @@ export default function SpacingGrid() {
   }, []);
 
   const SelectProduct = (cardId) => {
-    console.log("chek tab index", cardId);
+    history.push({
+      pathname: `/Productdetail`,
+    });
+    window.location.reload();
   };
 
   return (
