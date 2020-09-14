@@ -13,6 +13,8 @@ import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GTranslateIcon from "@material-ui/icons/GTranslate";
 
+import { Link } from "react-router-dom";
+
 import "../productDetailPage/productDetailRightSide.css";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -91,7 +93,9 @@ export default function RecipeReviewCard(props) {
         </div>
         <Divider Hard />
         <button>Add to cart</button>
-        <button>Buy Now </button>
+        <Link to={`/checkout`}>
+        <button>Buy Now</button>  
+        </Link>
         <Divider Hard />
         <Typography variant="h6" component="h6">
           Product Details

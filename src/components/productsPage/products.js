@@ -5,6 +5,7 @@ import Product from "./product";
 import Paper from "@material-ui/core/Paper";
 import ProductDesc from "./productDesc";
 import history from "../history";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,12 +78,12 @@ export default function SpacingGrid() {
     ]);
   }, []);
 
-  const SelectProduct = (cardId) => {
-    history.push({
-      pathname: `/Productdetail`,
-    });
-    window.location.reload();
-  };
+  // const SelectProduct = (cardId) => {
+  //   history.push({
+  //     pathname: `/Productdetail`,
+  //   });
+  //   window.location.reload();
+  // };
 
   return (
     <>
@@ -93,10 +94,12 @@ export default function SpacingGrid() {
             {Products.map((ProductObj) => (
               <Grid key={ProductObj.id} item>
                 <Paper
-                  onClick={() => SelectProduct(ProductObj.id)}
+                  // onClick={() => SelectProduct(ProductObj.id)}
                   className={classes.paper}
                 >
+                  <Link to={`/Productdetail`}>
                   <Product ProductObject={ProductObj} />
+                  </Link>
                 </Paper>
               </Grid>
             ))}
