@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 
 import SettingsIcon from "@material-ui/icons/Settings";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import Cart from "../cart/cartPage";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -88,10 +89,16 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
+  const [CartItems, setCartItems] = useState(5);
+
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const changeCartItems = () => {
+    console.log("cal price------------------------------------------?");
+  };
 
   const handleProfileMenuOpen = (event) => {
+    console.log("event", event.currentTarget);
     setAnchorEl(event.currentTarget);
   };
 
@@ -121,49 +128,11 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Cart cart={true} changeCartItems={changeCartItems} />
     </Menu>
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={1} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary"></Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
 
   return (
     <div className={classes.grow}>
@@ -195,25 +164,14 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Link to={`/cart`}>
-                <Badge badgeContent={4} color="secondary">
-                  <ShoppingCartIcon onClick={handleCartPage} />
-                </Badge>
-              </Link>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <SettingsIcon />
-            </IconButton>
             <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              aria-label="show 4 new mails"
               color="inherit"
+              onClick={handleProfileMenuOpen}
             >
-              <AccountCircle />
+              <Badge badgeContent={CartItems} color="secondary">
+                <ShoppingCartIcon onClick={handleCartPage} />
+              </Badge>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -229,7 +187,7 @@ export default function PrimarySearchAppBar() {
           </div>
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+
       {renderMenu}
     </div>
   );

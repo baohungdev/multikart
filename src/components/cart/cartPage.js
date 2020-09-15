@@ -10,6 +10,9 @@ import Paper from "@material-ui/core/Paper";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import CancelIcon from "@material-ui/icons/Cancel";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -33,29 +36,40 @@ const StyledTableRow = withStyles((theme) => ({
 
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 300,
+    minHeight: 1,
+  },
+  link: {
+    textDecoration: "none",
   },
 });
 
-export default function CustomizedTables() {
+export default function CustomizedTables(props) {
+  console.log("check props ", props.changeCartItems);
   const [rows, setRow] = useState([
     { id: "0", totalPrice: "250", price: "250", carbs: "1", qty: "1" },
     { id: "1", totalPrice: "350", price: "350", carbs: "2", qty: "1" },
     { id: "2", totalPrice: "200", price: "200", carbs: "3", qty: "1" },
     { id: "3", totalPrice: "300", price: "300", carbs: "4", qty: "1" },
+    { id: "4", totalPrice: "300", price: "400", carbs: "5", qty: "1" },
+    { id: "5", totalPrice: "350", price: "300", carbs: "6", qty: "1" },
   ]);
+
   const [Price, setPrice] = useState(0);
   useEffect(() => {
+    console.log("is it running ");
     CalTotalPrice();
   }, [Price]);
 
   const classes = useStyles();
 
-  async function cancel(id) {
+  function cancel(id) {
+    // if (props.changeCartItems) {
+    //   console.log("inside")
+    //   props.changeCartItems();
+    // }
     let mycart = rows.filter((row) => row.id !== id);
-    await setRow(mycart);
-    console.log("check my real cart", rows);
-    console.log("check my cart", mycart);
+    setRow(mycart);
     CalTotalPrice();
   }
 
@@ -108,14 +122,16 @@ export default function CustomizedTables() {
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
-          <TableRow>
-            <StyledTableCell>Image </StyledTableCell>
-            <StyledTableCell align="right">Product Name</StyledTableCell>
-            <StyledTableCell align="right">Price</StyledTableCell>
-            <StyledTableCell align="right">Quantity</StyledTableCell>
-            <StyledTableCell align="right">Action</StyledTableCell>
-            <StyledTableCell align="right">Total</StyledTableCell>
-          </TableRow>
+          {!props.cart ? (
+            <TableRow>
+              <StyledTableCell>Image </StyledTableCell>
+              <StyledTableCell align="right">Product Name</StyledTableCell>
+              <StyledTableCell align="right">Price</StyledTableCell>
+              <StyledTableCell align="right">Quantity</StyledTableCell>
+              <StyledTableCell align="right">Action</StyledTableCell>
+              <StyledTableCell align="right">Total</StyledTableCell>
+            </TableRow>
+          ) : null}
         </TableHead>
         <TableBody>
           {rows.map((row, i) => (
@@ -127,27 +143,40 @@ export default function CustomizedTables() {
                   src="https://react.pixelstrap.com/assets/images/fashion/product/13.jpg"
                 />
               </StyledTableCell>
-              <StyledTableCell align="right">striped dress</StyledTableCell>
               <StyledTableCell align="right">
-                <Typography variant="h5" component="h3">
-                  {row.price}.00 $
-                </Typography>
+                striped dress <br />
+                {props.cart ? (
+                  <p>
+                    {row.qty}*{row.price}.00 $
+                  </p>
+                ) : null}
               </StyledTableCell>
-              <StyledTableCell align="right">
-                <div>
-                  <button onClick={() => handleIncrease(row.id)}>+</button>
-                  <input value={row.qty || ""} />
-                  <button onClick={() => handleDecrease(row.id)}>-</button>
-                </div>
-              </StyledTableCell>
+              {!props.cart ? (
+                <StyledTableCell align="right">
+                  <Typography variant="h5" component="h3">
+                    {row.price}.00 $
+                  </Typography>
+                </StyledTableCell>
+              ) : null}
+              {!props.cart ? (
+                <StyledTableCell align="right">
+                  <div>
+                    <button onClick={() => handleIncrease(row.id)}>+</button>
+                    <input value={row.qty || ""} />
+                    <button onClick={() => handleDecrease(row.id)}>-</button>
+                  </div>
+                </StyledTableCell>
+              ) : null}
               <StyledTableCell align="right">
                 <CancelIcon onClick={() => cancel(row.id)} />
               </StyledTableCell>
-              <StyledTableCell align="right">
-                <Typography color="error" variant="h5" component="h3">
-                  {row.totalPrice}.00 $
-                </Typography>
-              </StyledTableCell>
+              {!props.cart ? (
+                <StyledTableCell align="right">
+                  <Typography color="error" variant="h5" component="h3">
+                    {row.totalPrice}.00 $
+                  </Typography>
+                </StyledTableCell>
+              ) : null}
             </StyledTableRow>
           ))}
         </TableBody>
@@ -155,6 +184,20 @@ export default function CustomizedTables() {
       <Typography color="error" variant="h5" component="h3">
         {Price}.00 $
       </Typography>
+      {props.cart ? (
+        <Typography color="error" variant="h5" component="h3">
+          <Link className={classes.link} to={`/checkout`}>
+            <Button variant="contained" color="primary">
+              Checkout{" "}
+            </Button>
+          </Link>{" "}
+          <Link className={classes.link} to={`/cart`}>
+            <Button variant="contained" color="primary">
+              View Cart{" "}
+            </Button>
+          </Link>
+        </Typography>
+      ) : null}
     </TableContainer>
   );
 }
