@@ -12,7 +12,7 @@ import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import GTranslateIcon from "@material-ui/icons/GTranslate";
-
+import Button from "@material-ui/core/Button";
 import { Link } from "react-router-dom";
 
 import "../productDetailPage/productDetailRightSide.css";
@@ -55,23 +55,38 @@ export default function RecipeReviewCard(props) {
     }
   };
 
+  const addToCart = () => {
+    if (localStorage.getItem("cartArray") === null) {
+      const arr = props.product;
+      arr.qty = Qty;
+      arr.totalPrice = props.product.Price * Qty;
+      let myCart = [];
+      myCart.push(arr);
+      console.log("arrr--------", myCart);
+      localStorage.setItem("cartArray", JSON.stringify(myCart));
+      alert("ADDED TO CART, alert box will be soon replaced by modal ");
+    } else {
+      const arr = props.product;
+      arr.qty = Qty;
+      arr.totalPrice = props.product.Price * Qty;
+      let mycart = JSON.parse(localStorage.getItem("cartArray"));
+      mycart.push(arr);
+      localStorage.setItem("cartArray", JSON.stringify(mycart));
+      alert("ADDED TO CART, alert box will be soon replaced by modal ");
+    }
+  };
+
   return (
     <>
-      {console.log("check classes ")}
       <CardContent>
         <Typography variant="h4" component="h4" align="left">
-          Trench Dress
+          {props.product.ProductName}
         </Typography>
-        <Typography variant="h7" color="error" component="h7" align="left">
-          <del>$660</del> 50% off
+        <Typography variant="h7" color="primary" component="h7" align="left">
+          <del>{props.product.Price * 2}</del> 50% off
         </Typography>
-        <Typography
-          variant="h5"
-          component="h5"
-          align="left"
-          color="textSecondary"
-        >
-          $300
+        <Typography variant="h5" component="h5" align="left" color="primary">
+          {props.product.Price}
         </Typography>
         <Divider Hard />
         <Typography variant="h7" component="h7">
@@ -80,23 +95,45 @@ export default function RecipeReviewCard(props) {
         <Typography variant="h6" component="h6">
           L M S
         </Typography>
-        <Typography variant="h7" component="h7" color="error">
+        <Typography variant="h7" component="h7" color="primary">
           In Stock
         </Typography>
         <Typography variant="h6" component="h6" color="textSecondary">
           Quantity
         </Typography>
-        <div>
-          <button onClick={handleIncrease}>+</button>
-          <input value={Qty} />
-          <button onClick={handleDecrease}>-</button>
+        <div style={{ display: "flex", height: "40px" }}>
+          <Button variant="contained" color="primary" onClick={handleIncrease}>
+            +
+          </Button>
+          <input
+            style={{ width: "40px", height: "17px", marginTop: "1px" }}
+            value={Qty}
+          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleDecrease}
+            style={{ marginRight: "20px" }}
+          >
+            -
+          </Button>
         </div>
-        <Divider Hard />
-        <button>Add to cart</button>
-        <Link to={`/checkout`}>
-        <button>Buy Now</button>  
-        </Link>
-        <Divider Hard />
+        <Divider Hard style={{ marginTop: "10px" }} />
+        <div style={{ marginTop: "10px" }}>
+          <Button variant="contained" color="primary" onClick={addToCart}>
+            Add to cart
+          </Button>
+          <Link to={`/checkout`} style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginLeft: "10px" }}
+            >
+              Buy Now
+            </Button>
+          </Link>
+        </div>
+        <Divider Hard Hard style={{ marginTop: "10px" }} />
         <Typography variant="h6" component="h6">
           Product Details
         </Typography>

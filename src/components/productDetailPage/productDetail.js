@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import CardMedia from "@material-ui/core/CardMedia";
-//7046
-//g
+import queryString from "query-string";
 import Paper from "@material-ui/core/Paper";
 import ProdutTabs from "./productDetailTab";
 import ProductDetailRightSide from "./productDetailRightSide";
@@ -25,8 +24,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SpacingGrid() {
+export default function SpacingGrid({ location }) {
   const classes = useStyles();
+
+  const { id } = queryString.parse(location.search);
+  const product = JSON.parse(localStorage.getItem("Products"))[[id - 1]];
+  console.log("products", product);
 
   return (
     <>
@@ -37,13 +40,13 @@ export default function SpacingGrid() {
               <Paper className={classes.paper}>
                 <CardMedia
                   className={classes.media}
-                  image="https://react.pixelstrap.com/assets/images/fashion/product/24.jpg"
+                  image={product.ProductImg}
                 />
               </Paper>
             </Grid>
             <Grid item>
               <Paper className={classes.paper}>
-                <ProductDetailRightSide />
+                <ProductDetailRightSide product={product} />
               </Paper>
             </Grid>
           </Grid>

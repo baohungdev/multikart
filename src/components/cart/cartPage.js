@@ -7,7 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import CardMedia from "@material-ui/core/CardMedia";
+
 import Typography from "@material-ui/core/Typography";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { Link } from "react-router-dom";
@@ -15,8 +15,8 @@ import Button from "@material-ui/core/Button";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
   },
   media: {
     height: 10,
@@ -45,21 +45,21 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables(props) {
-  console.log("check props ", props.changeCartItems);
-  const [rows, setRow] = useState([
-    { id: "0", totalPrice: "250", price: "250", carbs: "1", qty: "1" },
-    { id: "1", totalPrice: "350", price: "350", carbs: "2", qty: "1" },
-    { id: "2", totalPrice: "200", price: "200", carbs: "3", qty: "1" },
-    { id: "3", totalPrice: "300", price: "300", carbs: "4", qty: "1" },
-    { id: "4", totalPrice: "300", price: "400", carbs: "5", qty: "1" },
-    { id: "5", totalPrice: "350", price: "300", carbs: "6", qty: "1" },
-  ]);
+  // console.log("check props ", props.changeCartItems);
+  const [rows, setRow] = useState([]);
 
   const [Price, setPrice] = useState(0);
   useEffect(() => {
-    console.log("is it running ");
+    if (localStorage.getItem("cartArray") !== null) {
+      setRow(JSON.parse(localStorage.getItem("cartArray")));
+      console.log(
+        "check this ",
+        JSON.parse(localStorage.getItem("cartArray"))[0].qty
+      );
+    }
+
     CalTotalPrice();
-  }, [Price]);
+  }, []);
 
   const classes = useStyles();
 
@@ -69,8 +69,11 @@ export default function CustomizedTables(props) {
     //   props.changeCartItems();
     // }
     let mycart = rows.filter((row) => row.id !== id);
-    setRow(mycart);
-    CalTotalPrice();
+
+    setRow(mycart); // problem creating state
+    console.log("check state update ", rows, "mycart", mycart);
+
+    CalTotalPrice(); //
   }
 
   function compare(a, b) {
@@ -87,21 +90,25 @@ export default function CustomizedTables(props) {
 
   const CalTotalPrice = () => {
     let cartprice = 0;
-    console.log("why cart price is wrong ", rows);
+    // useeffect not getting cart array in caltotal price that's why price is 0 as at that time cart array in state was []
+    console.log("inside function check this", rows);
     rows.map((row) => {
+      console.log("check total price ", row);
       cartprice += parseInt(row.totalPrice);
     });
-    console.log("cal price", cartprice);
     setPrice(cartprice);
   };
+
   const handleIncrease = (id) => {
     let mycart = rows.filter((row) => row.id === id);
     let cart = rows.filter((row) => row.id !== id);
+    if (mycart[0].qty > 10) return;
     mycart[0].qty = (parseInt(mycart[0].qty) + 1).toString();
     mycart[0].totalPrice = (
-      parseInt(mycart[0].qty) * parseInt(mycart[0].price)
+      parseInt(mycart[0].qty) * parseInt(mycart[0].Price)
     ).toString();
     cart.push(mycart[0]);
+    cart.sort(compare);
     setRow(cart);
     CalTotalPrice();
   };
@@ -109,11 +116,13 @@ export default function CustomizedTables(props) {
   function handleDecrease(id) {
     let mycart = rows.filter((row) => row.id === id);
     let cart = rows.filter((row) => row.id !== id);
+    if (mycart[0].qty < 2) return;
     mycart[0].qty = (parseInt(mycart[0].qty) - 1).toString();
     mycart[0].totalPrice = (
-      parseInt(mycart[0].qty) * parseInt(mycart[0].price)
+      parseInt(mycart[0].qty) * parseInt(mycart[0].Price)
     ).toString();
     cart.push(mycart[0]);
+    cart.sort(compare);
     setRow(cart);
     CalTotalPrice();
   }
@@ -124,12 +133,36 @@ export default function CustomizedTables(props) {
         <TableHead>
           {!props.cart ? (
             <TableRow>
-              <StyledTableCell>Image </StyledTableCell>
-              <StyledTableCell align="right">Product Name</StyledTableCell>
-              <StyledTableCell align="right">Price</StyledTableCell>
-              <StyledTableCell align="right">Quantity</StyledTableCell>
-              <StyledTableCell align="right">Action</StyledTableCell>
-              <StyledTableCell align="right">Total</StyledTableCell>
+              <StyledTableCell>
+                <Typography color="primary" variant="h5" component="h5">
+                  Image
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <Typography color="primary" variant="h5" component="h5">
+                  Product Name
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <Typography color="primary" variant="h5" component="h5">
+                  Price
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <Typography color="primary" variant="h5" component="h5">
+                  Quantity
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <Typography color="primary" variant="h5" component="h5">
+                  Action
+                </Typography>
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                <Typography color="primary" variant="h5" component="h5">
+                  Total
+                </Typography>
+              </StyledTableCell>
             </TableRow>
           ) : null}
         </TableHead>
@@ -137,33 +170,54 @@ export default function CustomizedTables(props) {
           {rows.map((row, i) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
-                <img
-                  width="60"
-                  height="80"
-                  src="https://react.pixelstrap.com/assets/images/fashion/product/13.jpg"
-                />
+                <img width="60" height="80" src={row.ProductImg} />
               </StyledTableCell>
               <StyledTableCell align="right">
                 striped dress <br />
                 {props.cart ? (
                   <p>
-                    {row.qty}*{row.price}.00 $
+                    {row.qty}*{row.Price}.00 $
                   </p>
                 ) : null}
               </StyledTableCell>
               {!props.cart ? (
                 <StyledTableCell align="right">
                   <Typography variant="h5" component="h3">
-                    {row.price}.00 $
+                    {row.Price}.00 $
                   </Typography>
                 </StyledTableCell>
               ) : null}
               {!props.cart ? (
                 <StyledTableCell align="right">
-                  <div>
-                    <button onClick={() => handleIncrease(row.id)}>+</button>
-                    <input value={row.qty || ""} />
-                    <button onClick={() => handleDecrease(row.id)}>-</button>
+                  <div
+                    style={{
+                      display: "flex",
+                      height: "40px",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleIncrease(row.id)}
+                    >
+                      +
+                    </Button>
+                    <input
+                      style={{
+                        width: "40px",
+                        height: "17px",
+                        marginTop: "1px",
+                      }}
+                      value={row.qty || ""}
+                    />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleDecrease(row.id)}
+                    >
+                      -
+                    </Button>
                   </div>
                 </StyledTableCell>
               ) : null}
@@ -172,7 +226,7 @@ export default function CustomizedTables(props) {
               </StyledTableCell>
               {!props.cart ? (
                 <StyledTableCell align="right">
-                  <Typography color="error" variant="h5" component="h3">
+                  <Typography color="primary" variant="h5" component="h3">
                     {row.totalPrice}.00 $
                   </Typography>
                 </StyledTableCell>
@@ -181,7 +235,7 @@ export default function CustomizedTables(props) {
           ))}
         </TableBody>
       </Table>
-      <Typography color="error" variant="h5" component="h3">
+      <Typography color="primary" variant="h5" component="h3">
         {Price}.00 $
       </Typography>
       {props.cart ? (
