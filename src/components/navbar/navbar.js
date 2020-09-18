@@ -88,7 +88,7 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const [CartItems, setCartItems] = useState(5);
+  const [CartItems, setCartItems] = useState(10);
 
   const isMenuOpen = Boolean(anchorEl);
 

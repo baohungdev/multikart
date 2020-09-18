@@ -45,6 +45,7 @@ const useStyles = makeStyles({
 });
 
 export default function CustomizedTables(props) {
+  console.log("check notification func", props.changeCartItems);
   // console.log("check props ", props.changeCartItems);
   const [rows, setRow] = useState([]);
 
@@ -57,24 +58,12 @@ export default function CustomizedTables(props) {
         JSON.parse(localStorage.getItem("cartArray"))[0].qty
       );
     }
+    // console.log("checings1223132", props.changeCartItems());
 
     CalTotalPrice();
   }, []);
 
   const classes = useStyles();
-
-  function cancel(id) {
-    // if (props.changeCartItems) {
-    //   console.log("inside")
-    //   props.changeCartItems();
-    // }
-    let mycart = rows.filter((row) => row.id !== id);
-
-    setRow(mycart); // problem creating state
-    console.log("check state update ", rows, "mycart", mycart);
-
-    CalTotalPrice(); //
-  }
 
   function compare(a, b) {
     const ordera = a.id;
@@ -127,6 +116,18 @@ export default function CustomizedTables(props) {
     CalTotalPrice();
   }
 
+  function cancel(id) {
+    // if (props.changeCartItems) {
+    //   console.log("inside")
+    //   props.changeCartItems();
+    // }
+    let mycart = rows.filter((row) => row.id !== id);
+
+    setRow(mycart); // problem creating state
+
+    CalTotalPrice(); //
+  }
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
@@ -135,32 +136,68 @@ export default function CustomizedTables(props) {
             <TableRow>
               <StyledTableCell>
                 <Typography color="primary" variant="h5" component="h5">
-                  Image
+                  <p
+                    style={{
+                      fontFamily: "Monospace ,Courier New",
+                    }}
+                  >
+                    Image
+                  </p>
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
                 <Typography color="primary" variant="h5" component="h5">
-                  Product Name
+                  <p
+                    style={{
+                      fontFamily: "Monospace ,Courier New",
+                    }}
+                  >
+                    Product Name
+                  </p>
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
                 <Typography color="primary" variant="h5" component="h5">
-                  Price
+                  <p
+                    style={{
+                      fontFamily: "Monospace ,Courier New",
+                    }}
+                  >
+                    Price
+                  </p>
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
                 <Typography color="primary" variant="h5" component="h5">
-                  Quantity
+                  <p
+                    style={{
+                      fontFamily: "Monospace ,Courier New",
+                    }}
+                  >
+                    Quantity
+                  </p>
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
                 <Typography color="primary" variant="h5" component="h5">
-                  Action
+                  <p
+                    style={{
+                      fontFamily: "Monospace ,Courier New",
+                    }}
+                  >
+                    Action
+                  </p>
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
                 <Typography color="primary" variant="h5" component="h5">
-                  Total
+                  <p
+                    style={{
+                      fontFamily: "Monospace ,Courier New",
+                    }}
+                  >
+                    Total
+                  </p>
                 </Typography>
               </StyledTableCell>
             </TableRow>
@@ -173,9 +210,22 @@ export default function CustomizedTables(props) {
                 <img width="60" height="80" src={row.ProductImg} />
               </StyledTableCell>
               <StyledTableCell align="right">
-                striped dress <br />
-                {props.cart ? (
-                  <p>
+                <p
+                  style={{
+                    fontFamily: "Monospace ,Courier New",
+                    fontSize: "20px",
+                  }}
+                >
+                  {row.ProductName}
+                </p>{" "}
+                <br />
+                {!props.cart ? (
+                  <p
+                    style={{
+                      fontFamily: "Monospace ,Courier New",
+                      fontSize: "20px",
+                    }}
+                  >
                     {row.qty}*{row.Price}.00 $
                   </p>
                 ) : null}
@@ -183,7 +233,20 @@ export default function CustomizedTables(props) {
               {!props.cart ? (
                 <StyledTableCell align="right">
                   <Typography variant="h5" component="h3">
-                    {row.Price}.00 $
+                    <p
+                      style={{
+                        fontFamily: "Monospace ,Courier New",
+                        fontSize: "20px",
+                      }}
+                    ></p>{" "}
+                    <p
+                      style={{
+                        fontFamily: "Monospace ,Courier New",
+                        fontSize: "20px",
+                      }}
+                    >
+                      ${row.Price}.00{" "}
+                    </p>
                   </Typography>
                 </StyledTableCell>
               ) : null}
@@ -201,13 +264,21 @@ export default function CustomizedTables(props) {
                       color="primary"
                       onClick={() => handleIncrease(row.id)}
                     >
-                      +
+                      <p
+                        style={{
+                          fontFamily: "Monospace ,Courier New",
+                          fontSize: "40px",
+                        }}
+                      >
+                        +
+                      </p>
                     </Button>
                     <input
                       style={{
                         width: "40px",
                         height: "17px",
                         marginTop: "1px",
+                        textAlign: "center",
                       }}
                       value={row.qty || ""}
                     />
@@ -216,7 +287,15 @@ export default function CustomizedTables(props) {
                       color="primary"
                       onClick={() => handleDecrease(row.id)}
                     >
-                      -
+                      <p
+                        style={{
+                          fontFamily: "Monospace ,Courier New",
+                          fontSize: "40px",
+                        }}
+                      >
+                        {" "}
+                        -
+                      </p>
                     </Button>
                   </div>
                 </StyledTableCell>

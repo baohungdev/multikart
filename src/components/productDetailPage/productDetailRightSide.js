@@ -103,10 +103,22 @@ export default function RecipeReviewCard(props) {
         </Typography>
         <div style={{ display: "flex", height: "40px" }}>
           <Button variant="contained" color="primary" onClick={handleIncrease}>
-            +
+            <p
+              style={{
+                fontFamily: "Monospace ,Courier New",
+                fontSize: "40px",
+              }}
+            >
+              +
+            </p>
           </Button>
           <input
-            style={{ width: "40px", height: "17px", marginTop: "1px" }}
+            style={{
+              width: "40px",
+              height: "17px",
+              marginTop: "1px",
+              textAlign: "center",
+            }}
             value={Qty}
           />
           <Button
@@ -115,7 +127,14 @@ export default function RecipeReviewCard(props) {
             onClick={handleDecrease}
             style={{ marginRight: "20px" }}
           >
-            -
+            <p
+              style={{
+                fontFamily: "Monospace ,Courier New",
+                fontSize: "40px",
+              }}
+            >
+              -
+            </p>
           </Button>
         </div>
         <Divider Hard style={{ marginTop: "10px" }} />
@@ -138,10 +157,17 @@ export default function RecipeReviewCard(props) {
           Product Details
         </Typography>
         <Typography variant="p" component="p" color="textSecondary">
-          Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
-          accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae
-          ab illo inventore veritatis et quasi architecto beatae vitae dicta
-          sunt, explicabo. Nemo enim ipsam voluptatem,
+          <p
+            style={{
+              fontFamily: "Monospace ,Courier New",
+              color: "purple",
+            }}
+          >
+            Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam eaque ipsa,
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt, explicabo. Nemo enim ipsam voluptatem,
+          </p>
         </Typography>
         <Divider Hard />
         <Typography variant="h6" component="h6">

@@ -16,8 +16,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "30.25%", // 16:9
   },
   paper: {
-    height: 500,
-    width: 1000,
+    height: 600,
+    width: 1300,
   },
   control: {
     padding: theme.spacing(4),
@@ -52,10 +52,11 @@ export default function SpacingGrid() {
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry.
                 </Typography>
-                <Typography
-                  variant="p"
-                  component="p"
-                  className={classes.avatar}
+                <p
+                  style={{
+                    fontFamily: "Monospace ,Courier New",
+                    color: "purple",
+                  }}
                 >
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
@@ -67,7 +68,7 @@ export default function SpacingGrid() {
                   the release of Letraset sheets containing Lorem Ipsum
                   passages, and more recently with desktop publishing software
                   like Aldus PageMaker including versions of Lorem Ipsum.
-                </Typography>
+                </p>
               </CardContent>
             </Paper>
           </Grid>

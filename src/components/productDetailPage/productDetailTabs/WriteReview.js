@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Formik } from "formik";
 import StarRatings from "react-star-ratings";
 import * as Yup from "yup";
-import Classes from "./WriteReview.css";
+import MyInput from "../../formElements/formElements";
 const ContactFrom = () => {
   return (
     <div>
@@ -50,57 +50,47 @@ const ContactFrom = () => {
                 starSpacing="8px"
                 starRatedColor="orange"
               />
-              <label htmlFor="name">Name</label>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={
-                  Classes.myinput && errors.name && touched.name && "error"
-                }
-                type="text"
+              <MyInput
+                label="Name"
                 name="name"
-                placeholder="enter your Name"
-              />
-              {errors.name && touched.name && (
-                <div className="input-feedback">{errors.name}</div>
-              )}
-              <label htmlFor="email">Email</label>
-              <input
+                type="text"
+                placeholder="Enter your name"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={errors.email && touched.email && "error"}
-                type="text"
+                errors={errors}
+                touched={touched}
+              />
+              <MyInput
+                label="Email"
                 name="email"
-                placeholder="enter your email"
-              />
-              {errors.email && touched.email && (
-                <div className="input-feedback">{errors.email}</div>
-              )}
-              <label htmlFor="email">Review Title</label>
-              <input
+                type="text"
+                placeholder="Enter your email address"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={errors.review && touched.review && "error"}
-                type="text"
-                name="review"
-                placeholder="enter your review"
+                errors={errors}
+                touched={touched}
               />
-              {errors.review && touched.review && (
-                <div className="input-feedback">{errors.review}</div>
-              )}
 
-              <label htmlFor="email">Write Testimonial</label>
-              <input
+              <MyInput
+                label="Review Title"
+                name="review"
+                type="text"
+                placeholder="Enter your reviews "
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={errors.testimonial && touched.testimonial && "error"}
-                type="text"
-                name="testimonial"
-                placeholder="enter your email"
+                errors={errors}
+                touched={touched}
               />
-              {errors.testimonial && touched.testimonial && (
-                <div className="input-feedback">{errors.testimonial}</div>
-              )}
+              <MyInput
+                label="Testimonial"
+                name="testimonial"
+                type="text"
+                placeholder="Enter your testimonial "
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errors={errors}
+                touched={touched}
+              />
 
               <button type="submit" disabled={isSubmitting}>
                 Submit Your Review

@@ -3,6 +3,8 @@ import { Formik } from "formik";
 
 import * as Yup from "yup";
 import Classes from "./billingDetails.css";
+import MyInput from "../../formElements/formElements";
+
 const ContactFrom = () => {
   return (
     <div>
@@ -44,60 +46,47 @@ const ContactFrom = () => {
           return (
             <form autoComplete="off" onSubmit={handleSubmit}>
               <label htmlFor="name">Billing Details</label>
-              
-              <label htmlFor="name">Name</label>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={
-                  Classes.myinput && errors.name && touched.name && "error"
-                }
-                type="text"
+              <MyInput
+                label="name"
                 name="name"
-                placeholder="enter your Name"
-              />
-              {errors.name && touched.name && (
-                <div className="input-feedback">{errors.name}</div>
-              )}
-              <label htmlFor="email">Email</label>
-              <input
+                type="text"
+                placeholder="Enter your full name"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={errors.email && touched.email && "error"}
-                type="text"
+                errors={errors}
+                touched={touched}
+              />
+              <MyInput
+                label="email"
                 name="email"
-                placeholder="enter your email"
-              />
-              {errors.email && touched.email && (
-                <div className="input-feedback">{errors.email}</div>
-              )}
-              <label htmlFor="email">Phone number</label>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={errors.phone && errors.phone && "error"}
-                type="number"
-                name="phone"
-                placeholder="enter your phone"
-              />
-              {errors.phone && touched.phone && (
-                <div className="input-feedback">{errors.review}</div>
-              )}
-
-              <label htmlFor="address">address</label>
-              <input
-                onChange={handleChange}
-                onBlur={handleBlur}
-                className={errors.address && touched.address && "error"}
                 type="text"
-                name="address"
-                placeholder="enter your address"
+                placeholder="Enter your email address"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errors={errors}
+                touched={touched}
               />
-              {errors.address && touched.address && (
-                <div className="input-feedback">{errors.address}</div>
-              )}
 
-              
+              <MyInput
+                label="Phone"
+                name="phone"
+                type="number"
+                placeholder="Enter your phone number"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errors={errors}
+                touched={touched}
+              />
+              <MyInput
+                label=" Address"
+                name="address"
+                type="text"
+                placeholder="Enter your address"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errors={errors}
+                touched={touched}
+              />
             </form>
           );
         }}
@@ -107,3 +96,7 @@ const ContactFrom = () => {
 };
 
 export default ContactFrom;
+
+// refactor
+// ui changes
+//formik distrubution

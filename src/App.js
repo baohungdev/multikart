@@ -7,6 +7,7 @@ import NavBar from "./components/navbar/navbar";
 import Checkout from "./components/checkout/checkout.js";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import SignupForm from "./components/formElements/formElements";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/cart" exact component={CartPage} />
       <Route path="/checkout" exact component={Checkout} />
     </Router>
+    // <SignupForm />
   );
 }
 export default App;
