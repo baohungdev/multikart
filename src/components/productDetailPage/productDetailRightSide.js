@@ -62,7 +62,7 @@ export default function RecipeReviewCard(props) {
       arr.totalPrice = props.product.Price * Qty;
       let myCart = [];
       myCart.push(arr);
-      console.log("arrr--------", myCart);
+
       localStorage.setItem("cartArray", JSON.stringify(myCart));
       alert("ADDED TO CART, alert box will be soon replaced by modal ");
     } else {
@@ -70,7 +70,22 @@ export default function RecipeReviewCard(props) {
       arr.qty = Qty;
       arr.totalPrice = props.product.Price * Qty;
       let mycart = JSON.parse(localStorage.getItem("cartArray"));
-      mycart.push(arr);
+      console.log("check cart items ", mycart);
+
+      let needTopush = true;
+
+      mycart.map((item) => {
+        if (item.id == props.product.id) {
+          needTopush = false;
+          item.qty = item.qty + props.product.qty;
+          console.log("check my cart", mycart);
+          return;
+        }
+      });
+      if (needTopush) {
+        mycart.push(arr);
+      }
+
       localStorage.setItem("cartArray", JSON.stringify(mycart));
       alert("ADDED TO CART, alert box will be soon replaced by modal ");
     }
