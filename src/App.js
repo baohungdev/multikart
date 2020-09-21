@@ -1,13 +1,12 @@
 import React from "react";
 import "./App.css";
-import ProductPage from "./components/productsPage/products";
+import ProductPage from "./components/productsPage/productsHomePage";
 import ProductDetailPage from "./components/productDetailPage/productDetail";
 import CartPage from "./components/cart/cartPage";
 import NavBar from "./components/navbar/navbar";
 import Checkout from "./components/checkout/checkout.js";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import SignupForm from "./components/formElements/formElements";
 
 function App() {
   return (
@@ -18,7 +17,7 @@ function App() {
       <Route path="/cart" exact component={CartPage} />
       <Route path="/checkout" exact component={Checkout} />
     </Router>
-    // <SignupForm />
+    // <Drawer />
   );
 }
 export default App;

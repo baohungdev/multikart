@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SpacingGrid() {
+export default function ProductDesc() {
   const classes = useStyles();
 
   return (
