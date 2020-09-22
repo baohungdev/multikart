@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Product from "./productGridView";
-import Paper from "@material-ui/core/Paper";
+
 import ProductDesc from "./productDesc";
-import history from "../history";
-import { Link } from "react-router-dom";
 import ProductsList from "./productsThemeBox";
 import Products from "./products";
 
@@ -23,20 +19,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// cart price not updating correctly on deleting the item from cart
-// useEffect/component did mount not able to cal correct cart price as it's getting empty arry on cal price ////function while on rendering it has cart array ??
-//cart menu from tabs and cart page should work synchronously
-
-//update deatils in tabs section
-// list view of product to added in theme
-//badge bumber for cart icon should update according to number of items in cart
-//notification on del and adding item to cart
-
-//theme and color for complete product
-
 export default function SpacingGrid() {
   const classes = useStyles();
   const [view, setView] = useState("Grid");
+  const [noOfItems, setNoOfItems] = useState(4);
 
   useEffect(() => {
     localStorage.setItem(
@@ -174,18 +160,11 @@ export default function SpacingGrid() {
     );
   }, []);
 
-  // const SelectProduct = (cardId) => {
-  //   history.push({
-  //     pathname: `/Productdetail`,
-  //   });
-  //   window.location.reload();
-  // };
-
   return (
     <>
       <ProductDesc />
-      <ProductsList setView={setView} />
-      <Products view={view} />
+      <ProductsList view={view} setView={setView} setNoOfItems={setNoOfItems} />
+      <Products view={view} noOfItems={noOfItems} />
     </>
   );
 }

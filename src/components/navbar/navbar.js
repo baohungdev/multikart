@@ -28,6 +28,8 @@ import MailIcon from "@material-ui/icons/Mail";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import Cart from "../cart/cartPage";
+import AddCircleOutlineTwoToneIcon from "@material-ui/icons/AddCircleOutlineTwoTone";
+import RemoveTwoToneIcon from "@material-ui/icons/RemoveTwoTone";
 
 const drawerWidth = 240;
 
@@ -143,12 +145,19 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const [CartItems, setCartItems] = useState(10);
+  const [expand, setExpand] = useState([false, false, false, false, false]);
+
   const theme = useTheme();
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const changeCartItems = () => {
-    console.log("cal price------------------------------------------?");
+  const changeCartItems = () => {};
+
+  const setExpandTab = (index) => {
+    let arr = expand;
+    arr[index] = !arr[index];
+    setExpand(arr);
+    console.log("check expand array", expand);
   };
 
   const handleProfileMenuOpen = (event) => {
@@ -254,9 +263,32 @@ export default function PrimarySearchAppBar() {
         <List>
           {["Layout", "Shop", "Product", "Color Option", "RTL"].map(
             (text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
+              <>
+                {!expand[index] ? (
+                  <ListItem
+                    button
+                    key={text}
+                    onClick={() => setExpandTab(index)}
+                  >
+                    <ListItemText primary={text} />
+                    <AddCircleOutlineTwoToneIcon
+                      style={{ marginLeft: "20px" }}
+                    />
+                  </ListItem>
+                ) : (
+                  <>
+                    <ListItem
+                      button
+                      key={text}
+                      onClick={() => setExpandTab(index)}
+                    >
+                      <ListItemText primary={text} />
+                      <RemoveTwoToneIcon style={{ marginLeft: "20px" }} />
+                    </ListItem>
+                    <p> state update problem </p>
+                  </>
+                )}
+              </>
             )
           )}
         </List>

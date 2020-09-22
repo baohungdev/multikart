@@ -10,6 +10,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
+import Filter2Icon from "@material-ui/icons/Filter2";
+import Filter3Icon from "@material-ui/icons/Filter3";
+import Filter4Icon from "@material-ui/icons/Filter4";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +30,7 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(4),
   },
+
   avatar: {
     fontFamily: "-apple-system",
     fontStyle: "normal",
@@ -38,12 +42,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ProductsThemeBox(props) {
   const classes = useStyles();
 
-  console.log("check props from theme box ", props.setView);
-
   return (
     <Grid container className={classes.root} spacing={8}>
       <Grid item xs={12}>
-        <Grid container justify="center" spacing={8}>
+        <Grid container justify="center" spacing={4}>
           <Grid item>
             <Paper className={classes.paper}>
               <p style={{ marginLeft: "550px", fontSize: "25px" }}>
@@ -60,14 +62,36 @@ export default function ProductsThemeBox(props) {
                   style={{ marginLeft: "20px", height: "70px" }}
                   onClick={() => props.setView("List")}
                 />
-                <ViewColumnIcon
-                  style={{ marginLeft: "440px", height: "70px" }}
-                />
-                <Divider
-                  orientation="vertical"
-                  flexItem
-                  style={{ marginLeft: "40px" }}
-                />
+                {props.view === "Grid" ? (
+                  <>
+                    <Filter2Icon
+                      style={{ marginLeft: "380px", height: "70px" }}
+                      onClick={() => props.setNoOfItems(2)}
+                    />
+                    <Filter3Icon
+                      style={{ marginLeft: "4px", height: "70px" }}
+                      onClick={() => props.setNoOfItems(3)}
+                    />
+                    <Filter4Icon
+                      style={{ marginLeft: "4px", height: "70px" }}
+                      onClick={() => props.setNoOfItems(4)}
+                    />
+                  </>
+                ) : null}
+                {props.view === "Grid" ? (
+                  <Divider
+                    orientation="vertical"
+                    flexItem
+                    style={{ marginLeft: "40px" }}
+                  />
+                ) : (
+                  <Divider
+                    orientation="vertical"
+                    flexItem
+                    style={{ marginLeft: "500px" }}
+                  />
+                )}
+
                 <Select
                   labelId="demo-simple-select-filled-label"
                   id="demo-simple-select-filled"

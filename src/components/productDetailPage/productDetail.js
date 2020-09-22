@@ -11,9 +11,14 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
-  media: {
+  mediaBig: {
     height: 160,
     paddingTop: "80.25%", // 16:9
+  },
+  mediaSmall: {
+    marginTop: 20,
+    height: 215,
+    width: 180,
   },
   paper: {
     height: 700,
@@ -29,7 +34,13 @@ export default function SpacingGrid({ location }) {
 
   const { id } = queryString.parse(location.search);
   const product = JSON.parse(localStorage.getItem("Products"))[[id - 1]];
-  console.log("products", product);
+  const [image, setImage] = useState(1);
+  console.log("products", product, image);
+
+  // to switch between image
+  function switchImage(imageNumber) {
+    setImage(imageNumber);
+  }
 
   return (
     <>
@@ -38,10 +49,32 @@ export default function SpacingGrid({ location }) {
           <Grid container justify="flex-end" spacing={2}>
             <Grid item>
               <Paper className={classes.paper}>
-                <CardMedia
-                  className={classes.media}
-                  image={product.ProductImg}
-                />
+                {image === 1 ? (
+                  <CardMedia
+                    className={classes.mediaBig}
+                    image={product.ProductImg}
+                  />
+                ) : (
+                  <CardMedia
+                    className={classes.mediaBig}
+                    image="https://c8.alamy.com/comp/RAB9R0/writing-note-showing-we-ll-be-back-soon-business-photo-showcasing-taking-a-short-break-out-of-work-coming-back-in-a-few-blank-seal-with-shadow-for-la-RAB9R0.jpg"
+                  />
+                )}
+
+                <div style={{ display: "flex" }}>
+                  <CardMedia
+                    style={{ cursor: "pointer" }}
+                    className={classes.mediaSmall}
+                    image="https://c8.alamy.com/comp/RAB9R0/writing-note-showing-we-ll-be-back-soon-business-photo-showcasing-taking-a-short-break-out-of-work-coming-back-in-a-few-blank-seal-with-shadow-for-la-RAB9R0.jpg"
+                    onClick={() => switchImage(2)}
+                  />
+                  <CardMedia
+                    style={{ marginLeft: "30px", cursor: "pointer" }}
+                    className={classes.mediaSmall}
+                    image={product.ProductImg}
+                    onClick={() => switchImage(1)}
+                  />
+                </div>
               </Paper>
             </Grid>
             <Grid item>

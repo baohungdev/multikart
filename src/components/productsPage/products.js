@@ -4,8 +4,32 @@ import Grid from "@material-ui/core/Grid";
 import ProductGrid from "./productGridView";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
-
 import ProductList from "./productListView";
+
+const setHeight = (noOfItems) => {
+  //switch case or Hashmap could be used for this
+  if (noOfItems === 2) {
+    return 600;
+  }
+  if (noOfItems === 3) {
+    return 500;
+  }
+  if (noOfItems === 4) {
+    return 400;
+  }
+};
+
+const setWidth = (noOfItems) => {
+  if (noOfItems === 2) {
+    return 600;
+  }
+  if (noOfItems === 3) {
+    return 400;
+  }
+  if (noOfItems === 4) {
+    return 300;
+  }
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,12 +37,12 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paperGrid: {
-    height: 400,
-    width: 280,
+    height: setHeight,
+    width: setWidth,
   },
   paperList: {
     height: 300,
-    width: 1080,
+    width: 1300,
   },
   control: {
     padding: theme.spacing(4),
@@ -26,20 +50,31 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Products(props) {
-  const classes = useStyles();
+  const classes = useStyles(props.noOfItems);
   const [Products, setProducts] = useState([]);
+
+  const [changeView, setChangeView] = useState();
+
+  useEffect(() => {
+    setChangeView(props.noOfItems);
+    if (changeView) {
+      setHeight(changeView);
+    }
+    if (changeView) {
+      setWidth(changeView);
+    }
+  }, [props.noOfItems]);
 
   useEffect(() => {
     setProducts(JSON.parse(localStorage.getItem("Products")));
   }, []);
-  console.log("checking my view props", props);
 
   return (
     <>
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
           {props.view === "Grid" ? (
-            <Grid container justify="center" spacing={8}>
+            <Grid container justify="center" spacing={6}>
               {Products.map((ProductObj) => (
                 <Grid key={ProductObj.id} item>
                   <Paper
