@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SpacingGrid() {
+export default function Checkout(props) {
   const classes = useStyles();
 
   return (
@@ -31,12 +31,12 @@ export default function SpacingGrid() {
           <Grid container justify="center" spacing={2}>
             <Grid item>
               <Paper className={classes.paper}>
-                <BillDetails />
+                <BillDetails themeColor={props.themeColor} />
               </Paper>
             </Grid>
             <Grid item>
               <Paper className={classes.paper}>
-                <CartSummary />
+                <CartSummary themeColor={props.themeColor} />
               </Paper>
             </Grid>
           </Grid>

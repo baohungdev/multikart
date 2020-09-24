@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
+  const themeColor = props.themeColor;
+
+  console.log(" checking theme color inside each card", themeColor);
 
   //   const handleExpandClick = () => {
   //     setExpanded(!expanded);
@@ -52,10 +55,15 @@ export default function RecipeReviewCard(props) {
           starSpacing="8px"
           starRatedColor="orange"
         />
-        <Typography variant="body2" color="textSecondary" component="p">
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          component="p"
+          style={{ color: themeColor }}
+        >
           {props.ProductObject.ProductName}
         </Typography>
-        <Typography variant="h5" component="h3">
+        <Typography variant="h5" component="h3" style={{ color: themeColor }}>
           $ {props.ProductObject.Price}.00
         </Typography>
       </CardContent>

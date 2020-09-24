@@ -30,8 +30,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ProductDesc() {
+export default function ProductDesc(props) {
   const classes = useStyles();
+  const themeColor = props.themeColor;
 
   return (
     <Grid container className={classes.root} spacing={8}>
@@ -45,19 +46,28 @@ export default function ProductDesc() {
                 title="Paella dish"
               />
               <CardContent>
-                <Typography variant="h4" color="textSecondary" component="h5">
+                <Typography
+                  variant="h4"
+                  style={{ color: themeColor }}
+                  component="h5"
+                >
                   Fashion
                 </Typography>
-                <Typography variant="h5" component="h5" color="textSecondary">
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  style={{ color: themeColor }}
+                >
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry.
                 </Typography>
                 <p
                   style={{
                     fontFamily: "Monospace ,Courier New",
-                    color: "purple",
+                    color: themeColor,
                   }}
                 >
+                  {console.log("check my color ", themeColor)}
                   Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown

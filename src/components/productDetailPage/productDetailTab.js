@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function LabTabs() {
+export default function LabTabs(props) {
   const classes = useStyles();
   const [value, setValue] = React.useState("1");
-
+  const themeColor = props.themeColor;
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -28,7 +28,7 @@ export default function LabTabs() {
   return (
     <div className={classes.root}>
       <TabContext value={value}>
-        <AppBar position="static">
+        <AppBar position="static" style={{ backgroundColor: themeColor }}>
           <TabList onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Description" value="1" />
             <Tab label="Details" value="2" />

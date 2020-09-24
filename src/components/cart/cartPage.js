@@ -49,6 +49,7 @@ export default function CustomizedTables(props) {
   // console.log("check props ", props.changeCartItems);
   const [rows, setRow] = useState([]);
 
+  const themeColor = props.themeColor;
   const [Price, setPrice] = useState(0);
   useEffect(() => {
     if (localStorage.getItem("cartArray") !== null) {
@@ -135,7 +136,11 @@ export default function CustomizedTables(props) {
           {!props.cart ? (
             <TableRow>
               <StyledTableCell>
-                <Typography color="primary" variant="h5" component="h5">
+                <Typography
+                  variant="h5"
+                  component="h5"
+                  style={{ color: themeColor }}
+                >
                   <p
                     style={{
                       fontFamily: "Monospace ,Courier New",
@@ -146,7 +151,11 @@ export default function CustomizedTables(props) {
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <Typography color="primary" variant="h5" component="h5">
+                <Typography
+                  style={{ color: themeColor }}
+                  variant="h5"
+                  component="h5"
+                >
                   <p
                     style={{
                       fontFamily: "Monospace ,Courier New",
@@ -157,7 +166,11 @@ export default function CustomizedTables(props) {
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <Typography color="primary" variant="h5" component="h5">
+                <Typography
+                  style={{ color: themeColor }}
+                  variant="h5"
+                  component="h5"
+                >
                   <p
                     style={{
                       fontFamily: "Monospace ,Courier New",
@@ -168,7 +181,11 @@ export default function CustomizedTables(props) {
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <Typography color="primary" variant="h5" component="h5">
+                <Typography
+                  style={{ color: themeColor }}
+                  variant="h5"
+                  component="h5"
+                >
                   <p
                     style={{
                       fontFamily: "Monospace ,Courier New",
@@ -179,7 +196,11 @@ export default function CustomizedTables(props) {
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <Typography color="primary" variant="h5" component="h5">
+                <Typography
+                  style={{ color: themeColor }}
+                  variant="h5"
+                  component="h5"
+                >
                   <p
                     style={{
                       fontFamily: "Monospace ,Courier New",
@@ -190,7 +211,11 @@ export default function CustomizedTables(props) {
                 </Typography>
               </StyledTableCell>
               <StyledTableCell align="right">
-                <Typography color="primary" variant="h5" component="h5">
+                <Typography
+                  style={{ color: themeColor }}
+                  variant="h5"
+                  component="h5"
+                >
                   <p
                     style={{
                       fontFamily: "Monospace ,Courier New",
@@ -261,7 +286,7 @@ export default function CustomizedTables(props) {
                   >
                     <Button
                       variant="contained"
-                      color="primary"
+                      style={{ color: themeColor }}
                       onClick={() => handleIncrease(row.id)}
                     >
                       <p
@@ -284,7 +309,7 @@ export default function CustomizedTables(props) {
                     />
                     <Button
                       variant="contained"
-                      color="primary"
+                      style={{ color: themeColor }}
                       onClick={() => handleDecrease(row.id)}
                     >
                       <p
@@ -301,11 +326,18 @@ export default function CustomizedTables(props) {
                 </StyledTableCell>
               ) : null}
               <StyledTableCell align="right">
-                <CancelIcon onClick={() => cancel(row.id)} />
+                <CancelIcon
+                  onClick={() => cancel(row.id)}
+                  style={{ color: themeColor }}
+                />
               </StyledTableCell>
               {!props.cart ? (
                 <StyledTableCell align="right">
-                  <Typography color="primary" variant="h5" component="h3">
+                  <Typography
+                    style={{ color: themeColor }}
+                    variant="h5"
+                    component="h3"
+                  >
                     {row.totalPrice}.00 $
                   </Typography>
                 </StyledTableCell>
@@ -314,18 +346,18 @@ export default function CustomizedTables(props) {
           ))}
         </TableBody>
       </Table>
-      <Typography color="primary" variant="h5" component="h3">
+      <Typography style={{ color: themeColor }} variant="h5" component="h3">
         {Price}.00 $
       </Typography>
       {props.cart ? (
         <Typography color="error" variant="h5" component="h3">
           <Link className={classes.link} to={`/checkout`}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" style={{ color: themeColor }}>
               Checkout{" "}
             </Button>
           </Link>{" "}
           <Link className={classes.link} to={`/cart`}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" style={{ color: themeColor }}>
               View Cart{" "}
             </Button>
           </Link>

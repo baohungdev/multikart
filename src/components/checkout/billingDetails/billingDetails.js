@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import Classes from "./billingDetails.css";
 import MyInput from "../../formElements/formElements";
 
-const ContactFrom = () => {
+const ContactFrom = ({ themeColor }) => {
   return (
     <div>
       <Formik
@@ -45,7 +45,16 @@ const ContactFrom = () => {
           } = props;
           return (
             <form autoComplete="off" onSubmit={handleSubmit}>
-              <label htmlFor="name">Billing Details</label>
+              <label
+                htmlFor="name"
+                style={{
+                  fontSize: "22px",
+                  marginBottom: "30px",
+                  color: themeColor,
+                }}
+              >
+                Billing Details
+              </label>
               <MyInput
                 label="name"
                 name="name"
@@ -55,6 +64,7 @@ const ContactFrom = () => {
                 onBlur={handleBlur}
                 errors={errors}
                 touched={touched}
+                themeColor={themeColor}
               />
               <MyInput
                 label="email"

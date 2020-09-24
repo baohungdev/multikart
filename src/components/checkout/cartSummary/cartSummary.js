@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 
@@ -41,6 +41,8 @@ export default function RecipeReviewCard(props) {
 
   const [Checkout, setCheckout] = useState([]);
 
+  const themeColor = props.themeColor;
+
   let total = 0;
 
   useEffect(() => {
@@ -48,10 +50,8 @@ export default function RecipeReviewCard(props) {
       setCheckout(JSON.parse(localStorage.getItem("cartArray")));
     }
   }, []);
-  console.log("check from card details component", Checkout);
   Checkout.map((item) => {
     total += parseInt(item.totalPrice);
-    console.log("price ", typeof item.Price, item.Price, total);
   });
 
   return (
@@ -59,7 +59,8 @@ export default function RecipeReviewCard(props) {
       <CardContent>
         <Typography variant="h5" component="h5">
           <div style={{ display: "flex" }}>
-            <p>Product</p> <p style={{ marginLeft: "320px" }}>Total</p>
+            <p style={{ color: themeColor }}>Product</p>{" "}
+            <p style={{ marginLeft: "320px", color: themeColor }}>Total</p>
           </div>
         </Typography>
         <Divider />
@@ -83,7 +84,8 @@ export default function RecipeReviewCard(props) {
         <Divider />
         <Typography variant="h6" component="h6" color="primary">
           <div style={{ display: "flex" }}>
-            <p>Total</p> <p style={{ marginLeft: "350px" }}>{total}</p>
+            <p style={{ color: themeColor }}>Total</p>{" "}
+            <p style={{ marginLeft: "350px", color: themeColor }}>{total}</p>
           </div>
         </Typography>
         <CardMedia
@@ -92,7 +94,7 @@ export default function RecipeReviewCard(props) {
           title="Paella dish"
         />
         {true ? (
-          <button>place order</button>
+          <Button style={{ color: themeColor }}>place order</Button>
         ) : (
           <CardMedia
             className={classes.orderMedia}

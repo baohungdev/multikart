@@ -52,7 +52,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Products(props) {
   const classes = useStyles(props.noOfItems);
   const [Products, setProducts] = useState([]);
-
   const [changeView, setChangeView] = useState();
 
   useEffect(() => {
@@ -85,7 +84,10 @@ export default function Products(props) {
                       to={`/Productdetail/?id=${ProductObj.id}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <ProductGrid ProductObject={ProductObj} />
+                      <ProductGrid
+                        ProductObject={ProductObj}
+                        themeColor={props.themeColor}
+                      />
                     </Link>
                   </Paper>
                 </Grid>
@@ -103,7 +105,10 @@ export default function Products(props) {
                       to={`/Productdetail/?id=${ProductObj.id}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <ProductList ProductObject={ProductObj} />
+                      <ProductList
+                        ProductObject={ProductObj}
+                        themeColor={props.themeColor}
+                      />
                     </Link>
                   </Paper>
                 </Grid>

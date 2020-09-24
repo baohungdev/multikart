@@ -5,11 +5,10 @@ import Paper from "@material-ui/core/Paper";
 import { Divider } from "@material-ui/core";
 import ViewComfyIcon from "@material-ui/icons/ViewComfy";
 import ListIcon from "@material-ui/icons/List";
-import ViewColumnIcon from "@material-ui/icons/ViewColumn";
+
 import MenuItem from "@material-ui/core/MenuItem";
 
 import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import Filter2Icon from "@material-ui/icons/Filter2";
 import Filter3Icon from "@material-ui/icons/Filter3";
 import Filter4Icon from "@material-ui/icons/Filter4";
@@ -41,39 +40,66 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductsThemeBox(props) {
   const classes = useStyles();
-
+  const themeColor = props.themeColor;
+  console.log("check theme color here not working");
   return (
     <Grid container className={classes.root} spacing={8}>
       <Grid item xs={12}>
         <Grid container justify="center" spacing={4}>
           <Grid item>
             <Paper className={classes.paper}>
-              <p style={{ marginLeft: "550px", fontSize: "25px" }}>
+              <p
+                style={{
+                  marginLeft: "550px",
+                  fontSize: "25px",
+                  color: themeColor,
+                }}
+              >
                 Showing Products
               </p>
               <Divider />
 
               <Grid container alignItems="center" className={classes.root}>
                 <ViewComfyIcon
-                  style={{ marginLeft: "20px", height: "70px" }}
+                  style={{
+                    marginLeft: "20px",
+                    height: "70px",
+                    color: themeColor,
+                  }}
                   onClick={() => props.setView("Grid")}
                 />
                 <ListIcon
-                  style={{ marginLeft: "20px", height: "70px" }}
+                  style={{
+                    marginLeft: "20px",
+                    height: "70px",
+                    color: themeColor,
+                  }}
                   onClick={() => props.setView("List")}
                 />
                 {props.view === "Grid" ? (
                   <>
                     <Filter2Icon
-                      style={{ marginLeft: "380px", height: "70px" }}
+                      style={{
+                        marginLeft: "380px",
+                        height: "70px",
+                        color: themeColor,
+                      }}
                       onClick={() => props.setNoOfItems(2)}
                     />
                     <Filter3Icon
-                      style={{ marginLeft: "4px", height: "70px" }}
+                      style={{
+                        marginLeft: "4px",
+                        height: "70px",
+                        color: themeColor,
+                      }}
                       onClick={() => props.setNoOfItems(3)}
                     />
                     <Filter4Icon
-                      style={{ marginLeft: "4px", height: "70px" }}
+                      style={{
+                        marginLeft: "4px",
+                        height: "70px",
+                        color: themeColor,
+                      }}
                       onClick={() => props.setNoOfItems(4)}
                     />
                   </>
@@ -100,6 +126,7 @@ export default function ProductsThemeBox(props) {
                     width: "695px",
                     height: "72px",
                     marginLeft: "10px",
+                    color: themeColor,
                   }}
                 >
                   <MenuItem value="">

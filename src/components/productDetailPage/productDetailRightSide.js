@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
   const [Qty, setQty] = useState(1);
+  const themeColor = props.themeColor;
+
+  console.log("check theme color buttons ", themeColor);
 
   const handleIncrease = () => {
     if (Qty < 6) {
@@ -97,10 +100,16 @@ export default function RecipeReviewCard(props) {
         <Typography variant="h4" component="h4" align="left">
           {props.product.ProductName}
         </Typography>
-        <Typography variant="h7" color="primary" component="h7" align="left">
+        <Typography
+          variant="h6"
+          color="primary"
+          component="h7"
+          align="left"
+          style={{ color: themeColor }}
+        >
           <del>{props.product.Price * 2}</del> 50% off
         </Typography>
-        <Typography variant="h5" component="h5" align="left" color="primary">
+        <Typography variant="h5" component="h5" align="left">
           {props.product.Price}
         </Typography>
         <Divider Hard />
@@ -110,14 +119,18 @@ export default function RecipeReviewCard(props) {
         <Typography variant="h6" component="h6">
           L M S
         </Typography>
-        <Typography variant="h7" component="h7" color="primary">
+        <Typography variant="h7" component="h7" style={{ color: themeColor }}>
           In Stock
         </Typography>
-        <Typography variant="h6" component="h6" color="textSecondary">
+        <Typography variant="h6" component="h6">
           Quantity
         </Typography>
         <div style={{ display: "flex", height: "40px" }}>
-          <Button variant="contained" color="primary" onClick={handleIncrease}>
+          <Button
+            variant="contained"
+            onClick={handleIncrease}
+            style={{ color: themeColor }}
+          >
             <p
               style={{
                 fontFamily: "Monospace ,Courier New",
@@ -137,8 +150,8 @@ export default function RecipeReviewCard(props) {
             value={Qty}
           />
           <Button
+            style={{ color: themeColor }}
             variant="contained"
-            color="primary"
             onClick={handleDecrease}
             style={{ marginRight: "20px" }}
           >
@@ -154,28 +167,30 @@ export default function RecipeReviewCard(props) {
         </div>
         <Divider Hard style={{ marginTop: "10px" }} />
         <div style={{ marginTop: "10px" }}>
-          <Button variant="contained" color="primary" onClick={addToCart}>
+          <Button
+            variant="contained"
+            style={{ color: themeColor }}
+            onClick={addToCart}
+          >
             Add to cart
           </Button>
           <Link to={`/checkout`} style={{ textDecoration: "none" }}>
             <Button
               variant="contained"
-              color="primary"
-              style={{ marginLeft: "10px" }}
+              style={{ color: themeColor, marginLeft: "10px" }}
             >
               Buy Now
             </Button>
           </Link>
         </div>
         <Divider Hard Hard style={{ marginTop: "10px" }} />
-        <Typography variant="h6" component="h6">
+        <Typography variant="h5" component="h5" style={{ color: themeColor }}>
           Product Details
         </Typography>
-        <Typography variant="p" component="p" color="textSecondary">
+        <Typography variant="p" component="p">
           <p
             style={{
               fontFamily: "Monospace ,Courier New",
-              color: "purple",
             }}
           >
             Sed ut perspiciatis, unde omnis iste natus error sit voluptatem
@@ -185,14 +200,14 @@ export default function RecipeReviewCard(props) {
           </p>
         </Typography>
         <Divider Hard />
-        <Typography variant="h6" component="h6">
-          share It
+        <Typography variant="h5" component="h5" style={{ color: themeColor }}>
+          Share It
         </Typography>
-        <Typography variant="h6" component="h6">
-          <FacebookIcon />
-          <TwitterIcon />
-          <GTranslateIcon />
-          <InstagramIcon />
+        <Typography>
+          <FacebookIcon style={{ color: "blue" }} />
+          <TwitterIcon style={{ color: "skyblue" }} />
+          <GTranslateIcon style={{ color: "red" }} />
+          <InstagramIcon style={{ color: "pink" }} />
         </Typography>
       </CardContent>
     </>

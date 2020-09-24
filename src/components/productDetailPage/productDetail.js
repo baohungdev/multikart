@@ -29,13 +29,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SpacingGrid({ location }) {
+export default function ProductDetail(props) {
   const classes = useStyles();
 
-  const { id } = queryString.parse(location.search);
+  const { id } = queryString.parse(props.location.search);
+
   const product = JSON.parse(localStorage.getItem("Products"))[[id - 1]];
   const [image, setImage] = useState(1);
-  console.log("products", product, image);
 
   // to switch between image
   function switchImage(imageNumber) {
@@ -79,11 +79,14 @@ export default function SpacingGrid({ location }) {
             </Grid>
             <Grid item>
               <Paper className={classes.paper}>
-                <ProductDetailRightSide product={product} />
+                <ProductDetailRightSide
+                  product={product}
+                  themeColor={props.themeColor}
+                />
               </Paper>
             </Grid>
           </Grid>
-          <ProdutTabs />
+          <ProdutTabs themeColor={props.themeColor} />
         </Grid>
       </Grid>
     </>

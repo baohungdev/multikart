@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SpacingGrid() {
+export default function ProductsHomePage(props) {
   const classes = useStyles();
   const [view, setView] = useState("Grid");
   const [noOfItems, setNoOfItems] = useState(4);
@@ -162,9 +162,19 @@ export default function SpacingGrid() {
 
   return (
     <>
-      <ProductDesc />
-      <ProductsList view={view} setView={setView} setNoOfItems={setNoOfItems} />
-      <Products view={view} noOfItems={noOfItems} />
+      <ProductDesc themeColor={props.themeColor} />
+      <ProductsList
+        themeColor={props.themeColor}
+        view={view}
+        setView={setView}
+        setNoOfItems={setNoOfItems}
+        themecolor={props.themeColor}
+      />
+      <Products
+        view={view}
+        noOfItems={noOfItems}
+        themeColor={props.themeColor}
+      />
     </>
   );
 }
