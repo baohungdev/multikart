@@ -90,6 +90,7 @@ export default function RecipeReviewCard(props) {
       }
 
       localStorage.setItem("cartArray", JSON.stringify(mycart));
+      props.setCart( JSON.parse(localStorage.getItem("cartArray")).length)
       alert("ADDED TO CART, alert box will be soon replaced by modal ");
     }
   };

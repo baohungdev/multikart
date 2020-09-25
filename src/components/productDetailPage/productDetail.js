@@ -82,6 +82,7 @@ export default function ProductDetail(props) {
                 <ProductDetailRightSide
                   product={product}
                   themeColor={props.themeColor}
+                  setCart={props.setNoOfItems}
                 />
               </Paper>
             </Grid>

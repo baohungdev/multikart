@@ -158,6 +158,7 @@ export default function ProductsHomePage(props) {
         },
       ])
     );
+    props.setNoOfItems( JSON.parse(localStorage.getItem("cartArray")).length)
   }, []);
 
   return (

@@ -44,25 +44,35 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CustomizedTables(props) {
-  console.log("check notification func", props.changeCartItems);
-  // console.log("check props ", props.changeCartItems);
-  const [rows, setRow] = useState([]);
+export default function CartPage(props) {
+ 
+  const [Cart, setCart] = useState([]);
 
   const themeColor = props.themeColor;
   const [Price, setPrice] = useState(0);
-  useEffect(() => {
-    if (localStorage.getItem("cartArray") !== null) {
-      setRow(JSON.parse(localStorage.getItem("cartArray")));
-      console.log(
-        "check this ",
-        JSON.parse(localStorage.getItem("cartArray"))[0].qty
-      );
-    }
-    // console.log("checings1223132", props.changeCartItems());
 
-    CalTotalPrice();
+  const CalTotalPrice = () => {
+    let cartprice = 0;
+    Cart.map((item) => {
+      console.log("check total price ", item);
+      cartprice += parseInt(item.totalPrice);
+    });
+    setPrice(cartprice);
+  };
+ 
+  
+  useEffect(() => {
+    
+    if (localStorage.getItem("cartArray") !== null) {
+
+      let cartState= JSON.parse(localStorage.getItem("cartArray"))
+      setCart(cartState);
+    }
   }, []);
+  useEffect(()=>{
+    console.log("check cart this time ", Cart)
+    CalTotalPrice();
+  },[Cart])
 
   const classes = useStyles();
 
@@ -78,20 +88,9 @@ export default function CustomizedTables(props) {
     return comparison;
   }
 
-  const CalTotalPrice = () => {
-    let cartprice = 0;
-    // useeffect not getting cart array in caltotal price that's why price is 0 as at that time cart array in state was []
-    console.log("inside function check this", rows);
-    rows.map((row) => {
-      console.log("check total price ", row);
-      cartprice += parseInt(row.totalPrice);
-    });
-    setPrice(cartprice);
-  };
-
   const handleIncrease = (id) => {
-    let mycart = rows.filter((row) => row.id === id);
-    let cart = rows.filter((row) => row.id !== id);
+    let mycart = Cart.filter((row) => row.id === id);
+    let cart = Cart.filter((row) => row.id !== id);
     if (mycart[0].qty > 10) return;
     mycart[0].qty = (parseInt(mycart[0].qty) + 1).toString();
     mycart[0].totalPrice = (
@@ -99,13 +98,13 @@ export default function CustomizedTables(props) {
     ).toString();
     cart.push(mycart[0]);
     cart.sort(compare);
-    setRow(cart);
+     setCart(cart);
     CalTotalPrice();
   };
 
   function handleDecrease(id) {
-    let mycart = rows.filter((row) => row.id === id);
-    let cart = rows.filter((row) => row.id !== id);
+    let mycart = Cart.filter((row) => row.id === id);
+    let cart = Cart.filter((row) => row.id !== id);
     if (mycart[0].qty < 2) return;
     mycart[0].qty = (parseInt(mycart[0].qty) - 1).toString();
     mycart[0].totalPrice = (
@@ -113,19 +112,13 @@ export default function CustomizedTables(props) {
     ).toString();
     cart.push(mycart[0]);
     cart.sort(compare);
-    setRow(cart);
+    setCart(cart);
     CalTotalPrice();
   }
 
   function cancel(id) {
-    // if (props.changeCartItems) {
-    //   console.log("inside")
-    //   props.changeCartItems();
-    // }
-    let mycart = rows.filter((row) => row.id !== id);
-
-    setRow(mycart); // problem creating state
-
+    let mycart = Cart.filter((row) => row.id !== id);
+    setCart(mycart); // problem creating state
     CalTotalPrice(); //
   }
 
@@ -229,7 +222,7 @@ export default function CustomizedTables(props) {
           ) : null}
         </TableHead>
         <TableBody>
-          {rows.map((row, i) => (
+          {Cart.map((row, i) => (
             <StyledTableRow key={row.name}>
               <StyledTableCell component="th" scope="row">
                 <img width="60" height="80" src={row.ProductImg} />

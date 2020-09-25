@@ -145,7 +145,6 @@ export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
-  const [CartItems, setCartItems] = useState(10);
   const [expand, setExpand] = useState([false, false, false, false, false]);
   const [colorsArray, setColorsArray] = useState([]);
   const themeColor = props.themeColor;
@@ -169,9 +168,7 @@ export default function PrimarySearchAppBar(props) {
       "pink",
       "Magenta",
     ]);
-  }, []);
-
-  const changeCartItems = () => {};
+  }, [expand]);
 
   const setExpandTab = (index) => {
     let arr = expand;
@@ -210,13 +207,13 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Cart cart={true} changeCartItems={changeCartItems} />
+      <Cart cart={true} />
     </Menu>
   );
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{ backgroundColor: themeColor }}>
+      <AppBar position="static" style={{ backgroundColor: themeColor , }}>
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             Multikart theme
@@ -241,7 +238,7 @@ export default function PrimarySearchAppBar(props) {
               color="inherit"
               onClick={handleProfileMenuOpen}
             >
-              <Badge badgeContent={CartItems} color="secondary">
+              <Badge badgeContent={props.noOfItems} color="secondary">
                 <ShoppingCartIcon onClick={handleCartPage} />
               </Badge>
             </IconButton>

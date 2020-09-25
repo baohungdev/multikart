@@ -10,6 +10,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   const [themeColor, setThemeColor] = useState("orange");
+  const [noOfItems , setNoOfItems] = useState(0);
+  
 
   return (
     <Router>
@@ -18,24 +20,25 @@ function App() {
         color="secondary"
         themeColor={themeColor}
         setThemeColor={setThemeColor}
+        noOfItems = {noOfItems}
       />
       <Route
         path="/"
         exact
-        component={() => <ProductPage themeColor={themeColor} />}
+        component={() => <ProductPage themeColor={themeColor}  setNoOfItems={setNoOfItems}/>}
       />
       <Route
         path="/Productdetail/"
         exact
         component={(props) => (
-          <ProductDetailPage {...props} themeColor={themeColor} />
+          <ProductDetailPage {...props} themeColor={themeColor} setNoOfItems={setNoOfItems} />
         )}
       />
-      {/* // arrow function , location search undefined ??*/}
+      {/* // arrow function , location search undefined ??*/} 
       <Route
         path="/cart"
         exact
-        component={() => <CartPage themeColor={themeColor} />}
+        component={() => <CartPage themeColor={themeColor}   />}
       />
       <Route
         path="/checkout"

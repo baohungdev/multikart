@@ -12,10 +12,10 @@ const setHeight = (noOfItems) => {
     return 600;
   }
   if (noOfItems === 3) {
-    return 500;
+    return 400;
   }
   if (noOfItems === 4) {
-    return 400;
+    return 390;
   }
 };
 
@@ -24,10 +24,10 @@ const setWidth = (noOfItems) => {
     return 600;
   }
   if (noOfItems === 3) {
-    return 400;
+    return 320;
   }
   if (noOfItems === 4) {
-    return 300;
+    return 250;
   }
 };
 
